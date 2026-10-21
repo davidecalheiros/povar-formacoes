@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Suporte de Formação · Povar</title>
+<meta name="description" content="Um canal direto para continuares a aplicar o que aprendeste nas formações Povar.">
+<meta name="theme-color" content="#120B1E">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --night: #120B1E; --night-2: #1A1028;
+  --ink: #1A1028; --body: #6B6878; --muted: #9B9BAA; --hint: #C0BDC9;
+  --v: #7C3AED; --v-light: #9D7FF5; --lilac: #DDD6FE; --lilac-soft: #EDE9FE; --v-50: #F0EEFF;
+  --paper: #F5F4F1; --white: #FFFFFF;
+  --border: rgba(100,90,130,.10); --border-pill: rgba(100,90,130,.18);
+  --title: "DM Sans", system-ui, sans-serif;
+  --sans: "DM Sans", system-ui, -apple-system, sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; }
+body {
+  font-family: var(--sans); color: #FFFFFF; -webkit-font-smoothing: antialiased;
+  background:
+    radial-gradient(900px 600px at 0% 0%, rgba(124,58,237,.32), transparent 60%),
+    radial-gradient(700px 500px at 100% 100%, rgba(124,58,237,.18), transparent 60%),
+    var(--night);
+  background-attachment: fixed;
+}
+a { color: inherit; }
+
+.wrap { max-width: 1120px; margin: 0 auto; padding: 32px 24px 28px; min-height: 100vh; display: flex; flex-direction: column; }
+.top { display: flex; justify-content: space-between; align-items: flex-start; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.brand img { width: 30px; height: 33px; }
+.brand span { font-family: var(--title); font-size: 1.45rem; font-weight: 600; letter-spacing: -.02em; }
+.meta { text-align: right; }
+.meta small { display: block; font-size: .66rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: rgba(221,214,254,.62); }
+.meta strong { display: block; font-size: .9rem; font-weight: 600; letter-spacing: .04em; margin-top: 4px; }
+
+.main { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 56px; align-items: center; padding: 40px 0 28px; }
+.eyebrow { font-size: .74rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--v-light); margin: 0 0 16px; }
+h1 { font-family: var(--title); font-weight: 500; font-size: clamp(2.3rem, 5vw, 3.6rem); line-height: 1.04; letter-spacing: -.035em; margin: 0; }
+.lead { font-size: 1.12rem; font-weight: 300; line-height: 1.55; color: rgba(221,214,254,.80); margin: 20px 0 0; max-width: 34ch; }
+.how { list-style: none; padding: 0; margin: 30px 0 0; display: grid; gap: 12px; max-width: 420px; }
+.how li { display: flex; gap: 14px; align-items: baseline; font-size: .92rem; font-weight: 300; color: rgba(255,255,255,.86); line-height: 1.5; }
+.how b { font-weight: 600; font-size: .78rem; color: var(--v-light); min-width: 22px; letter-spacing: .04em; }
+
+/* Cartão de chat */
+.chat { background: var(--white); border-radius: 22px; overflow: hidden; display: flex; flex-direction: column; height: min(640px, 72vh); min-height: 480px; color: var(--ink); box-shadow: 0 30px 80px -30px rgba(0,0,0,.6); }
+.chat-head { display: flex; align-items: center; gap: 14px; padding: 16px 20px; background: #FAFAF8; border-bottom: 1px solid var(--border); }
+.avatar { width: 46px; height: 46px; border-radius: 50%; background: var(--v); display: grid; place-items: center; flex-shrink: 0; }
+.avatar img { width: 20px; height: 22px; }
+.chat-head h2 { margin: 0; font-size: 1.02rem; font-weight: 600; letter-spacing: -.01em; }
+.chat-head p { margin: 2px 0 0; font-size: .78rem; font-weight: 300; color: var(--body); display: flex; align-items: center; gap: 6px; }
+.chat-head p::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #059669; }
+.head-actions { margin-left: auto; display: flex; gap: 6px; }
+.icon-btn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--border-pill); background: transparent; display: grid; place-items: center; color: var(--body); cursor: pointer; }
+.icon-btn:hover { background: var(--v-50); color: var(--v); }
+
+.msgs { flex: 1; overflow-y: auto; padding: 18px 18px 10px; display: flex; flex-direction: column; gap: 10px;
+  background-color: #F3EFE8;
+  background-image: radial-gradient(rgba(100,90,130,.10) 1px, transparent 1px); background-size: 18px 18px; }
+.stamp { align-self: center; font-size: .66rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 2px 0 6px; }
+.msg { max-width: 86%; padding: 10px 14px 8px; border-radius: 14px; font-size: .92rem; line-height: 1.5; box-shadow: 0 1px 1px rgba(26,16,40,.06); position: relative; word-wrap: break-word; }
+.msg .who { display: block; font-size: .74rem; font-weight: 600; margin-bottom: 3px; }
+.msg.bot { align-self: flex-start; background: var(--white); border-top-left-radius: 4px; }
+.msg.bot .who { color: var(--v); }
+.msg.me { align-self: flex-end; background: var(--lilac-soft); border-top-right-radius: 4px; }
+.msg.me .who { color: var(--ink); }
+.msg p { margin: 0 0 6px; } .msg p:last-child { margin-bottom: 0; }
+.msg ol, .msg ul { margin: 4px 0 6px; padding-left: 20px; } .msg li { margin: 2px 0; }
+.msg a { color: var(--v); font-weight: 500; }
+.msg code { background: var(--v-50); padding: 1px 5px; border-radius: 4px; font-size: .86em; }
+.msg strong { font-weight: 600; }
+.msg .time { display: block; text-align: right; font-size: .66rem; color: var(--muted); margin-top: 2px; }
+.typing { display: inline-flex; gap: 4px; padding: 4px 2px; }
+.typing i { width: 6px; height: 6px; border-radius: 50%; background: var(--hint); animation: b 1.2s infinite; }
+.typing i:nth-child(2) { animation-delay: .15s; } .typing i:nth-child(3) { animation-delay: .3s; }
+@keyframes b { 0%, 60%, 100% { transform: translateY(0); opacity: .5 } 30% { transform: translateY(-4px); opacity: 1 } }
+
+.chips { display: flex; gap: 6px; flex-wrap: wrap; padding: 0 18px 10px; background: #F3EFE8; }
+.chip { font-family: var(--sans); font-size: .78rem; font-weight: 400; padding: 7px 12px; border-radius: 20px; border: 1px solid var(--border-pill); background: var(--white); color: var(--ink); cursor: pointer; }
+.chip:hover { border-color: rgba(124,58,237,.4); color: var(--v); }
+
+.compose { display: flex; align-items: flex-end; gap: 10px; padding: 12px 14px; background: #F3EFE8; border-top: 1px solid var(--border); }
+.field { flex: 1; display: flex; align-items: flex-end; background: var(--white); border-radius: 24px; padding: 4px 6px 4px 16px; border: 1px solid transparent; }
+.field:focus-within { border-color: rgba(124,58,237,.35); }
+textarea { flex: 1; border: 0; outline: 0; resize: none; font-family: var(--sans); font-size: .95rem; font-weight: 400; color: var(--ink); line-height: 1.45; padding: 10px 0; max-height: 140px; background: transparent; }
+textarea::placeholder { color: var(--muted); font-weight: 300; }
+.send { width: 48px; height: 48px; border-radius: 50%; border: 0; background: var(--v); color: #FFFFFF; display: grid; place-items: center; cursor: pointer; flex-shrink: 0; transition: transform .12s, background .12s; }
+.send:hover { background: #6D28D9; } .send:active { transform: scale(.95); } .send:disabled { background: var(--hint); cursor: default; }
+
+.about { margin: 4px 0 22px; padding: 18px 22px; border-radius: 16px; background: rgba(124,58,237,.14); border: 1px solid rgba(221,214,254,.12); }
+.about span { font-size: .68rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--v-light); }
+.about p { margin: 6px 0 0; font-size: .95rem; font-weight: 300; line-height: 1.6; color: rgba(255,255,255,.88); max-width: 90ch; }
+.foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding-top: 18px; border-top: 1px solid rgba(221,214,254,.10); }
+.foot small { font-size: .68rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: rgba(221,214,254,.55); }
+.cta { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-size: .98rem; font-weight: 500; color: var(--lilac); }
+.cta em { font-style: normal; font-size: .72rem; font-weight: 600; letter-spacing: .06em; padding: 4px 8px; border-radius: 20px; background: rgba(124,58,237,.28); color: #FFFFFF; }
+.cta:hover { color: #FFFFFF; }
+
+@media (max-width: 900px) {
+  .wrap { padding: 20px 16px 20px; }
+  .main { grid-template-columns: 1fr; gap: 22px; padding: 26px 0 18px; }
+  .how { display: none; }
+  .lead { font-size: 1rem; margin-top: 12px; }
+  .chat { height: 70vh; min-height: 440px; border-radius: 18px; }
+  .brand span { font-size: 1.25rem; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="https://povar.pt" target="_blank" rel="noopener"><img src="logo-white.svg" alt=""><span>Povar</span></a>
+    <div class="meta"><small>Suporte</small><strong>Formações Povar</strong></div>
+  </header>
+
+  <main class="main">
+    <section>
+      <p class="eyebrow">Depois da formação</p>
+      <h1>Um canal direto para continuares a aplicar.</h1>
+      <p class="lead">Pergunta como se faz qualquer exercício, pede um pedido pronto para a imagem ou o reel do teu produto, ou explica o que não funcionou.</p>
+      <ol class="how">
+        <li><b>01</b>Escreve o código de acesso que recebeste na formação.</li>
+        <li><b>02</b>Diz o que vendes e o que queres fazer.</li>
+        <li><b>03</b>Recebes os passos ou o pedido pronto a colar.</li>
+      </ol>
+    </section>
+
+    <section class="chat" aria-label="Chat com o Assistente de Formação">
+      <div class="chat-head">
+        <div class="avatar"><img src="logo-white.svg" alt=""></div>
+        <div><h2>Assistente de Formação</h2><p>Responde com os materiais da tua formação</p></div>
+        <div class="head-actions">
+          <button class="icon-btn" id="reset" title="Começar de novo" aria-label="Começar de novo">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="msgs" id="msgs" aria-live="polite"><span class="stamp">Hoje</span></div>
+      <div class="chips" id="chips"></div>
+      <form class="compose" id="form">
+        <div class="field"><textarea id="input" rows="1" placeholder="Escreve a tua mensagem..." aria-label="Mensagem"></textarea></div>
+        <button class="send" id="send" type="submit" aria-label="Enviar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg>
+        </button>
+      </form>
+    </section>
+  </main>
+
+  <section class="about">
+    <span>A Povar</span>
+    <p>Estúdio de IA e automação da Póvoa de Varzim. Começamos por um diagnóstico, desenhamos e implementamos as soluções contigo e com a tua equipa, e continuamos ao teu lado depois de estarem a funcionar: acompanhamos, afinamos e melhoramos. Do primeiro dia em diante, nunca ficas sozinho.</p>
+  </section>
+
+  <footer class="foot">
+    <small>Povar · IA e automação · Póvoa de Varzim</small>
+    <a class="cta" href="https://cal.com/povar.pt/30min" target="_blank" rel="noopener"><em>-20%</em>Marcar diagnóstico de 30 min <span aria-hidden="true">→</span></a>
+  </footer>
+</div>
+
+<script>
+const WEBHOOK = 'https://davidecalheiros.app.n8n.cloud/webhook/fe4b6df8-27bd-47fe-8a47-5f3a56665656/chat';
+const store = {
+  get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
+  del(k) { try { localStorage.removeItem(k); } catch (e) {} }
+};
+function newId() { return (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : 's' + Date.now() + Math.random().toString(16).slice(2); }
+let sessionId = store.get('povar_sessao') || newId();
+store.set('povar_sessao', sessionId);
+
+const msgs = document.getElementById('msgs'), input = document.getElementById('input'), form = document.getElementById('form'), send = document.getElementById('send'), chips = document.getElementById('chips');
+
+function esc(s) { return s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+function inline(s) {
+  return s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+    .replace(/(^|[\s(])(https?:\/\/[^\s<)]+)/g, '$1<a href="$2" target="_blank" rel="noopener">$2</a>');
+}
+function md(text) {
+  const lines = esc(text).split('\n'); let html = '', list = null;
+  const close = () => { if (list) { html += '</' + list + '>'; list = null; } };
+  for (const raw of lines) {
+    const l = raw.trim();
+    let m;
+    if ((m = l.match(/^\d+[.)]\s+(.*)/))) { if (list !== 'ol') { close(); html += '<ol>'; list = 'ol'; } html += '<li>' + inline(m[1]) + '</li>'; }
+    else if ((m = l.match(/^[-*•]\s+(.*)/))) { if (list !== 'ul') { close(); html += '<ul>'; list = 'ul'; } html += '<li>' + inline(m[1]) + '</li>'; }
+    else if (!l) { close(); }
+    else { close(); html += '<p>' + inline(l.replace(/^#+\s*/, '')) + '</p>'; }
+  }
+  close(); return html;
+}
+function now() { const d = new Date(); return String(d.getHours()).padStart(2, '0') + 'h' + String(d.getMinutes()).padStart(2, '0'); }
+function add(who, text, raw) {
+  const el = document.createElement('div');
+  el.className = 'msg ' + (who === 'me' ? 'me' : 'bot');
+  el.innerHTML = '<span class="who">' + (who === 'me' ? 'Tu' : 'Assistente Povar') + '</span>' + (raw ? text : md(text)) + '<span class="time">' + now() + '</span>';
+  msgs.appendChild(el); msgs.scrollTop = msgs.scrollHeight; return el;
+}
+function setChips(list) {
+  chips.innerHTML = '';
+  list.forEach(t => { const b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = t; b.onclick = () => { input.value = t; form.requestSubmit(); }; chips.appendChild(b); });
+}
+function greet() {
+  if (store.get('povar_acesso') === 'sim') {
+    add('bot', 'Olá outra vez! Em que te posso ajudar hoje?');
+    setChips(['Quero uma imagem para promover um produto', 'Como faço o exercício da ficha do negócio?', 'Algo não funcionou']);
+  } else {
+    add('bot', 'Olá! Sou o Assistente de Formação da Povar.\n\nPara começar, escreve o **código de acesso** que recebeste na formação.');
+    setChips([]);
+  }
+}
+
+async function ask(text) {
+  add('me', text);
+  chips.innerHTML = '';
+  input.value = ''; autosize(); send.disabled = true;
+  const typing = add('bot', '<span class="typing"><i></i><i></i><i></i></span>', true);
+  try {
+    const r = await fetch(WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'sendMessage', sessionId, chatInput: text }) });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const data = await r.json();
+    const out = (Array.isArray(data) ? data[0] : data) || {};
+    const reply = out.output || out.text || out.message || 'Não consegui responder agora. Tenta de novo daqui a pouco.';
+    typing.remove(); add('bot', reply);
+    if (/^código aceite/i.test(reply.trim())) {
+      store.set('povar_acesso', 'sim');
+      setChips(['Quero uma imagem para promover um produto', 'Dá-me o guião de um reel', 'Como crio o meu assistente?']);
+    }
+  } catch (e) {
+    typing.remove();
+    add('bot', 'Não consegui ligar ao assistente. Confirma a ligação à internet e tenta outra vez. Se continuar, escreve para hello@povar.pt.');
+  } finally { send.disabled = false; input.focus(); }
+}
+
+function autosize() { input.style.height = 'auto'; input.style.height = Math.min(input.scrollHeight, 140) + 'px'; }
+input.addEventListener('input', autosize);
+input.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); form.requestSubmit(); } });
+form.addEventListener('submit', e => { e.preventDefault(); const t = input.value.trim(); if (t && !send.disabled) ask(t); });
+document.getElementById('reset').addEventListener('click', () => {
+  msgs.innerHTML = '<span class="stamp">Hoje</span>'; greet();
+});
+greet();
+</script>
+</body>
+</html>
