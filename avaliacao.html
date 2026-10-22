@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Avaliação da Formação · Povar</title>
+<meta name="description" content="Dois minutos para nos dizeres como correu a formação.">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+:root { --night: #120B1E; --card: #1B1330; --line: #33294D; --ink: #F4F1FF; --body: #C4BCDC; --muted: #8C84A6; --v: #8B5CF6; --v2: #A78BFA; --lilac: #DDD6FE; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: "DM Sans", system-ui, sans-serif; color: var(--ink); line-height: 1.5;
+  background: radial-gradient(900px 600px at 0% 0%, rgba(124,58,237,.32), transparent 60%), radial-gradient(700px 500px at 100% 100%, rgba(124,58,237,.16), transparent 60%), var(--night); background-attachment: fixed; }
+.wrap { max-width: 640px; margin: 0 auto; padding: 28px 16px 48px; }
+.top { display: flex; justify-content: space-between; align-items: center; }
+.brand { display: flex; gap: 10px; align-items: center; text-decoration: none; color: var(--ink); font-weight: 500; font-size: 1.15rem; }
+.brand img { width: 26px; height: 29px; }
+.top small { font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.eyebrow { font-size: .74rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--v2); margin: 34px 0 10px; }
+h1 { font-weight: 500; font-size: clamp(1.8rem, 6vw, 2.5rem); line-height: 1.12; letter-spacing: -.02em; margin: 0; }
+.lead { color: var(--body); font-weight: 300; font-size: 1rem; margin: 12px 0 24px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px; margin-bottom: 12px; }
+.q { font-weight: 500; font-size: .98rem; margin: 0 0 4px; }
+.h { font-size: .8rem; color: var(--muted); font-weight: 300; margin: 0 0 12px; }
+.stars { display: flex; gap: 8px; }
+.stars button { flex: 1; aspect-ratio: 1; max-width: 56px; border-radius: 14px; border: 1px solid var(--line); background: #120B1E; color: var(--muted); font-family: inherit; font-size: 1.05rem; font-weight: 500; cursor: pointer; }
+.stars button.on { background: var(--v); border-color: var(--v); color: #fff; }
+.scale { display: flex; justify-content: space-between; font-size: .72rem; color: var(--muted); margin-top: 6px; max-width: 312px; }
+input[type=text], textarea { width: 100%; background: #120B1E; border: 1px solid var(--line); color: var(--ink); border-radius: 12px; padding: 11px 12px; font-family: inherit; font-size: .95rem; }
+textarea { min-height: 96px; resize: vertical; }
+input:focus, textarea:focus { outline: none; border-color: var(--v2); }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips button { font-family: inherit; font-size: .84rem; padding: 8px 13px; border-radius: 20px; border: 1px solid var(--line); background: transparent; color: var(--body); cursor: pointer; }
+.chips button.on { background: rgba(139,92,246,.22); border-color: var(--v2); color: var(--ink); }
+label.ok { display: flex; gap: 10px; align-items: flex-start; font-size: .84rem; color: var(--body); margin: 6px 0 16px; }
+label.ok input { margin-top: 3px; accent-color: var(--v); }
+.btn { width: 100%; font-family: inherit; font-size: .95rem; font-weight: 500; padding: 14px; border-radius: 26px; border: 0; background: var(--v); color: #fff; cursor: pointer; }
+.btn:disabled { opacity: .5; cursor: default; }
+.msg { font-size: .84rem; color: var(--muted); text-align: center; margin-top: 10px; min-height: 1.2em; }
+.done { display: none; text-align: center; padding: 36px 18px; }
+.done h2 { font-weight: 500; font-size: 1.6rem; margin: 0 0 8px; }
+.done p { color: var(--body); font-weight: 300; margin: 0 0 18px; }
+.done a { color: var(--lilac); }
+.foot { margin-top: 26px; font-size: .74rem; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.foot a { color: var(--lilac); }
+@media (max-width: 520px) { .row { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top"><a class="brand" href="https://povar.pt" target="_blank" rel="noopener"><img src="logo-white.svg" alt="">Povar</a><small>Avaliação</small></header>
+  <form id="f">
+    <p class="eyebrow" id="fname">Formação Povar</p>
+    <h1>Como correu a formação?</h1>
+    <p class="lead">Cinco perguntas, dois minutos. Lemos todas as respostas e usamo-las para melhorar a próxima.</p>
+
+    <div class="card">
+      <p class="q">Como avalias a formação?</p>
+      <p class="h">De 1 (fraca) a 5 (excelente)</p>
+      <div class="stars" data-k="nota_formacao"></div>
+    </div>
+
+    <div class="card">
+      <p class="q">E os recursos que levas?</p>
+      <p class="h">Atalhos, modelos da ficha e do painel, Assistente de Formação</p>
+      <div class="stars" data-k="nota_recursos"></div>
+    </div>
+
+    <div class="card">
+      <p class="q">O que podia ser melhor?</p>
+      <p class="h">Ritmo, exemplos, ferramentas, o que quiseres</p>
+      <textarea name="melhorar" maxlength="2000" placeholder="Escreve aqui"></textarea>
+    </div>
+
+    <div class="card">
+      <p class="q">O que gostavas de aprofundar?</p>
+      <p class="h">Escolhe um ou mais</p>
+      <div class="chips" id="chips"></div>
+    </div>
+
+    <div class="card">
+      <p class="q">Os teus dados (opcional)</p>
+      <p class="h">Só se quiseres que falemos contigo sobre o teu negócio</p>
+      <div class="row">
+        <input type="text" name="nome" maxlength="120" placeholder="Nome e negócio" autocomplete="name">
+        <input type="text" name="contacto" maxlength="160" placeholder="Email ou telemóvel" autocomplete="email">
+      </div>
+      <label class="ok"><input type="checkbox" name="aceita"> Aceito que a Povar me contacte sobre este pedido. Não partilhamos os teus dados.</label>
+    </div>
+
+    <button class="btn" id="send" type="submit">Enviar avaliação</button>
+    <p class="msg" id="msg"></p>
+  </form>
+  <div class="done" id="done">
+    <h2>Obrigado!</h2>
+    <p>A tua avaliação chegou. Os materiais e o Assistente de Formação ficam disponíveis para ti.</p>
+    <p><a href="atalhos.html">Atalhos da formação</a> · <a href="index.html">Assistente de Formação</a></p>
+  </div>
+  <footer class="foot"><span>Povar · IA e automação · Póvoa de Varzim</span><span><a href="https://cal.com/povar.pt/30min" target="_blank" rel="noopener">Diagnóstico de 30 min</a></span></footer>
+</div>
+<script>
+const HOOK = 'https://davidecalheiros.app.n8n.cloud/webhook/povar-avaliacao';
+const params = new URLSearchParams(location.search);
+const formacao = (params.get('f') || '').slice(0, 40);
+if (params.get('n')) document.getElementById('fname').textContent = params.get('n').slice(0, 80);
+const state = { nota_formacao: 0, nota_recursos: 0, aprofundar: new Set() };
+document.querySelectorAll('.stars').forEach(box => {
+  for (let i = 1; i <= 5; i++) {
+    const b = document.createElement('button'); b.type = 'button'; b.textContent = i; b.setAttribute('aria-label', i + ' de 5');
+    b.addEventListener('click', () => { state[box.dataset.k] = i; box.querySelectorAll('button').forEach((x, j) => x.classList.toggle('on', j < i)); });
+    box.appendChild(b);
+  }
+});
+['Skills no Gemini', 'Lovable', 'Activepieces', 'Imagem e vídeo', 'Redes sociais', 'Atendimento automático'].forEach(t => {
+  const b = document.createElement('button'); b.type = 'button'; b.textContent = t;
+  b.addEventListener('click', () => { b.classList.toggle('on'); state.aprofundar.has(t) ? state.aprofundar.delete(t) : state.aprofundar.add(t); });
+  document.getElementById('chips').appendChild(b);
+});
+document.getElementById('f').addEventListener('submit', async e => {
+  e.preventDefault();
+  const msg = document.getElementById('msg'), btn = document.getElementById('send');
+  if (!state.nota_formacao) { msg.textContent = 'Falta a nota da formação.'; return; }
+  const f = e.target, body = new URLSearchParams({
+    formacao, nota_formacao: state.nota_formacao, nota_recursos: state.nota_recursos,
+    melhorar: f.melhorar.value.trim(), aprofundar: [...state.aprofundar].join(', '),
+    nome: f.nome.value.trim(), contacto: f.contacto.value.trim(), aceita_contacto: f.aceita.checked ? 'sim' : 'nao'
+  });
+  btn.disabled = true; msg.textContent = 'A enviar...';
+  try {
+    const r = await fetch(HOOK, { method: 'POST', body });
+    if (!r.ok) throw new Error(r.status);
+    f.style.display = 'none'; document.getElementById('done').style.display = 'block';
+  } catch (err) { btn.disabled = false; msg.textContent = 'Não foi possível enviar. Tenta outra vez daqui a pouco.'; }
+});
+</script>
+</body>
+</html>
